@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+{% if pageid == 1 %}
+<h2 class="page-header user_type">Add Questions(Common)</h2>
+{% else %}
+<h2 class="page-header user_type">Add Questions(Service Specific)</h2>
+{% endif %}
+
+
+
+{% endblock %}
+{% block card%}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+  <div class="panel panel-default">
+    <div class="panel-heading user-form">
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Category</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" id="category" required name="category" onchange="getval(this);">
+            <option value="">--Select--</option>
+            {% for category in category %}
+            <option value={{category.0}}> {{category.1}}</option>
+
+            {% endfor %}
+          </select>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Sub Category</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" required id="subcategory" name="subcategory" onchange="getServicesVal(this);">
+            <option value="">--Select--</option>
+          </select>
+
+        </div>
+      </div>
+
+      {% if pageid == 1 %}
+
+      {% else %}
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Related Services</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" required id="service" name="service">
+            <option value="">--Select--</option>
+          </select>
+
+        </div>
+      </div>
+      {% endif %}
+
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Name</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="question_name" type="text" required name="question_name"
+            placeholder="Question Name">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Name (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="question_name_arabic" type="text" required
+            name="question_name_arabic" placeholder="اسم السؤال">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Display For Provider</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="question_for_provider" type="text" required name="question_for_provider"
+            placeholder="Question For Provider">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Display For Provider (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="question_for_provider_arabic" type="text" required
+            name="question_for_provider_arabic" placeholder="سؤال للمزود">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Display For Requester</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="question_for_requester" type="text" required name="question_for_requester"
+            placeholder="Question For Requester">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"> Question Display For Requester (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="question_for_requester_arabic" type="text" required name="question_for_requester_arabic"
+            placeholder="سؤال للطالب">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Answer</label>
+        <div class="col-md-4 offset-md-3 answerCls">
+          Default: <input class="form-control " id="answer" type="text" required name="answer[]" placeholder="Answer">
+          <br>
+          <input class="form-control " dir="rtl" id="answer_arabic" type="text" required name="answer_arabic[]" placeholder="إجابة">
+          <br>
+          <button type="button" class='addmore'>+ Add More</button> <button type="button" class='deleteAns'>- Delete
+            Answer</button>
+        </div>
+
+      </div>
+
+
+
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger" type="reset"><i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+{% endblock %}
+{% block card2%}
+{% endblock %}
+
+{% block jsbody%}
+
+<script type="text/javascript">
+
+
+  $(".deleteAns").on('click', function () {
+    var test1 = $(this).next('div').remove();
+    return false;
+  });
+
+
+  var i = 3;
+  $(".addmore").on('click', function () {
+    dataHtml = '';
+    dataHtml += '<div class="ansInCls"><input class="form-control" id="answer' + i + '" type="text" required name="answer[]" placeholder="Answer" /><br><input class="form-control" id="answer_arabic' + i+1 + '" type="text" dir="rtl" required name="answer_arabic[]" placeholder="إجابة" /><br></div>';
+    $('.answerCls').append(dataHtml);
+    i+=2;
+    // dataHtml = '';
+    // dataHtml += '<div class="ansInCls"><input class="form-control" id="answer_arabic' + i + '" type="text" required name="answer_arabic[]" placeholder="إجابة" /><br></div>';
+    // $('.answerCls').append(dataHtml);
+    // i++;
+  });
+
+
+
+
+
+
+  function getval(sel) {
+    if (typeof sel == 'object') {
+      selId = sel.value;
+    }
+    $.ajax({
+      type: "GET",
+      url: "{% url 'get_table_values' %}",
+      data: {
+        'id': selId,
+      },
+      success: function (result) {
+        var ddHtml = '';
+        ddHtml += '<option >--Select--</option>';
+        console.log(result);
+        if (result.qs_len != '0') {
+          $.each(result.qs, function (key, value) {
+            var valCode = value.subcate;
+            var valId = value.id;
+            ddHtml += '<option value=' + valId + ' >' + valCode + '</option>';
+            $("#subcategory").html(ddHtml);
+          });
+        } else {
+          $("#subcategory").val('')
+          //$("#subcategory").attr('disabled', 'disabled');
+        }
+      }
+    });
+  }
+
+  function getServicesVal(ser) {
+    if (typeof ser == 'object') {
+      selId = ser.value;
+    }
+    $.ajax({
+      type: "GET",
+      url: "{% url 'get_services_values' %}",
+      data: {
+        'id': selId,
+      },
+      success: function (result) {
+        var ddHtml = '';
+        console.log(result);
+        if (result.qs_len != '0') {
+          $.each(result.qs, function (key, value) {
+            var valCode = value.service_name;
+            var valId = value.id;
+            ddHtml += '<option value=' + valId + ' selected>' + valCode + '</option>';
+            $("#service").html(ddHtml);
+          });
+        } else {
+          $("#service").val('')
+
+        }
+      }
+    });
+
+  }
+
+</script>
+{%endblock%}

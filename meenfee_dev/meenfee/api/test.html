@@ -1,0 +1,50 @@
+<!-- <html>
+<body> -->
+    <div id="wwID0EQGET" class="Body"
+        style="font-variant-numeric: normal; font-variant-east-asian: normal; color: #4f5d6c; font-family: Roboto, Helvetica, Arial, Tahoma, sans-serif; font-size: 15px; margin-bottom: 6pt; margin-top: 6pt;">
+        <span style="font-size: 36pt;">The remaining problem for simple output</span>&nbsp;is how to handle long text
+        strings. A text widget that contains a long string may cause formatting problems such as skipping to a new line
+        or
+        truncating. For screen design,&nbsp;<em>you saw earlier that the editor widget is a good choice for holding long
+            text strings</em>. The editor is also the solution for reports. With the editor, you can output text in
+        blocks.
+    </div>
+    <div id="wwID0EWGET" class="Body"
+        style="font-variant-numeric: normal; font-variant-east-asian: normal; color: #4f5d6c; font-family: Roboto, Helvetica, Arial, Tahoma, sans-serif; font-size: 15px; margin-bottom: 6pt; margin-top: 6pt;">
+        For example, the Comments field in the&nbsp;<span class="uicontrol"
+            style="font-weight: bold;">Customer</span>&nbsp;table has a format of<span class="codeph"
+            style="font-family: 'Courier New', Courier, monospace;">&nbsp;x(60)</span>. Reserving 60 spaces takes up
+        most of
+        a line in a standard&nbsp;<span style="font-family: 'times new roman', times, serif;">printed
+            report.</span>&nbsp;You can override this default behavior by specifying a&nbsp;<span class="codeph"
+            style="font-family: 'Courier New', Courier, monospace;">VIEW-AS EDITOR</span>&nbsp;phrase for the Comments
+        field.&nbsp;<span style="font-size: 14pt;">When you output a field or variable value</span>&nbsp;as an editor
+        widget, the AVM uses the&nbsp;<span class="codeph"
+            style="font-family: 'Courier New', Courier, monospace;">INNER-CHARS</span>&nbsp;attribute of the editor to
+        format and wrap the text into a block. The&nbsp;<span class="codeph"
+            style="font-family: 'Courier New', Courier, monospace;">INNER-LINES</span>&nbsp;syntax sets the minimum
+        number
+        of lines the block occupies. If there is enough data to fill more lines than specified by&nbsp;<span
+            class="codeph" style="font-family: 'Courier New', Courier, monospace;">INNER-LINES</span>, then the AVM
+        provides the extra
+        room.</div>
+    <div id="wwID0E2HET" class="Body"
+        style="font-variant-numeric: normal; font-variant-east-asian: normal; color: #4f5d6c; font-family: Roboto, Helvetica, Arial, Tahoma, sans-serif; font-size: 15px; margin-bottom: 6pt; margin-top: 6pt;">
+        To see an example of<span style="font-family: impact, sans-serif;">&nbsp;editor output in reports:</span></div>
+    <div id="wwID0EFIET" class="Numbered_1"
+        style="font-variant-numeric: normal; font-variant-east-asian: normal; color: #4f5d6c; font-family: Roboto, Helvetica, Arial, Tahoma, sans-serif; font-size: 15px; margin-bottom: 3pt; margin-left: 18pt; margin-top: 3pt; text-indent: -18pt;">
+        <span class="WebWorks_Number"
+            style="display: inline-block; margin: 0px; padding: 0px; text-indent: 0px; width: 18pt;">1.</span>Open&nbsp;<span
+            class="filepath" style="font-family: 'Courier New', Courier, monospace;">i-10-04.p</span>&nbsp;and run it.
+    </div>
+    <div class="ww_skin_page_overflow"
+        style="overflow: auto; color: #4f506c; font-family: Roboto, Helvetica, Arial, Tahoma, sans-serif; font-size: 13.3333px;">
+        <div id="wwID0E3IET" class="Numbered_1"
+            style="color: #4f5d6c; font-size: 15px; font-variant-numeric: normal; font-variant-east-asian: normal; margin-bottom: 3pt; margin-left: 18pt; margin-top: 3pt; text-indent: -18pt;">
+            <span class="WebWorks_Number"
+                style="display: inline-block; margin: 0px; padding: 0px; text-indent: 0px; width: 18pt;">2.</span>Click&nbsp;<span
+                class="uicontrol" style="font-weight: bold;">Report</span>. The&nbsp;<span class="uicontrol"
+                style="font-weight: bold;">Report Output</span> dialog box appears:</div>
+    </div>
+<!-- </body>
+</html> -->

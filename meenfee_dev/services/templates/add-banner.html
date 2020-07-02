@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">Add Banner</h2>
+{% endblock %}
+{% block card%}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+  <div class="panel panel-default">
+    <div class="panel-heading user-form">
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Title</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="banner_name" maxlength="35" type="text" required name="banner_name"
+            placeholder="Title">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Title (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="banner_name_arabic" maxlength="35" type="text" required name="banner_name_arabic"
+            placeholder="عنوان">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Additional Info</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="description" maxlength="50" type="text" required name="description"
+            placeholder="Additional Info.">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Additional Info (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="description_arabic" maxlength="50" type="text" required name="description_arabic"
+            placeholder="معلومات إضافية">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Banner Image</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="id_banner_image" required type="file" name="banner_image">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input"></label>
+        <div class="col-md-4 offset-md-3">
+          <div class="load-img" id="preview">
+            <p id="fp"></p>
+            <label id="lblErrorMessageAuthorImage" style="color:red"></label>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" type="submit">
+          <i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger" type="reset">
+          <i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+{% endblock %}
+{% block card2%}
+{% endblock %}
+
+{% block jsbody%}
+<script type="text/javascript">
+
+  $("#id_banner_image").change(function () {
+    readURL(this);
+  });
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#blah').attr('src', e.target.result);
+      }
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  window.URL = window.URL || window.webkitURL;
+  var elBrowse = document.getElementById("id_banner_image"),
+    elPreview = document.getElementById("preview"),
+    useBlob = false && window.URL;
+
+  function readImage(file) {
+
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      var image = new Image();
+      image.addEventListener("load", function () {
+        var imageInfo = '<div class="finfo">' + image.width + '×' +
+          image.height + ' ' +
+          '<p > Filesize : <b>' + Math.round(file.size / 1024) + '</b> KB</p></div>';
+
+
+
+        //elPreview.appendChild( this );
+        $('.finfo').html('');
+        elPreview.insertAdjacentHTML("beforeend", imageInfo + '');
+        if (useBlob) {
+          window.URL.revokeObjectURL(image.src);
+        }
+      });
+      image.src = useBlob ? window.URL.createObjectURL(file) : reader.result;
+
+    });
+    reader.readAsDataURL(file);
+  }
+
+
+  elBrowse.addEventListener("change", function () {
+    var files = this.files;
+    var errors = "";
+
+    if (!files) {
+      errors += "File upload not supported by your browser.";
+    }
+
+
+    if (files && files[0]) {
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+
+        if ((/\.(png|jpeg|jpg|gif)$/i).test(file.name)) {
+          readImage(file);
+        } else {
+          errors += file.name + " Please upload valid Image!\n";
+        }
+      }
+    }
+
+
+    if (errors) {
+      alert(errors);
+    }
+
+  });
+
+
+
+
+
+
+
+</script>
+{%endblock%}

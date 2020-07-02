@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type" xmlns="http://www.w3.org/1999/html">Sub Category List</h2>
+{% endblock %}
+{% block card%}
+<style>
+</style>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<form role="form" method="post" name="detailform" id="detailform">{% csrf_token %}
+<div class="panel panel-default">
+<div class="panel-heading">  
+</div>
+ <!-- /.panel-heading -->
+<div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab" id="tab-main">All Sub Category</a></li> 
+        <li class="addbutton"><button  onclick="return goToAdd();" >Add </button></li>        
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+            
+             <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="subcDataList">
+                    <thead>
+                        <tr>
+                            <th>#</th>                                            
+                            <th>Related Category (English)</th>
+                            <th>Related Category (Arabic)</th>
+                            <th>Sub Category Name (English)</th>
+                            <th>Sub Category Name (Arabic)</th>                              
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab1-tbody">{% csrf_token %}
+             		  {% for subcatelist in object_list %}             		  			
+									<tr>
+                                     <td>{{ forloop.counter }}</td>
+                                    <td>                                   	
+                                    	 {% for category in category %}
+                                    	 	 {% ifequal category.0 subcatelist.category_id %}
+                                    			 <a href="#" onclick="return goToSubCategory({{subcatelist.category_id }})" > {{ category.1 }} </a>
+                                    		{% endifequal %}
+                                    		
+                                    	{% endfor %} 
+                                    </td>
+                                    <td>                                   	
+                                        {% for category in category %}
+                                             {% ifequal category.0 subcatelist.category_id %}
+                                                <a href="#" onclick="return goToSubCategory({{subcatelist.category_id }})" > {{ category.2 }} </a>
+                                           {% endifequal %}
+                                           
+                                       {% endfor %} 
+                                   </td>
+                                    <td>{{ subcatelist.category2 }}</td>
+                                    <td>{{ subcatelist.subcategory_in_arabic }}</td>                                     
+                                    <td>
+                                    <a href="#" onclick='return goToSubCateEdit({{subcatelist.id }})' >Edit</a> |
+                                     <a href="#" onclick='return goToDelete({{subcatelist.id }}); '> Delete </a> 
+                                     
+                                    </td>
+                                </tr>								
+                             {% endfor %}  
+                    </tbody>
+                </table>
+            <!-- /.table-responsive --> 
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<!-- /.panel-body 1-->
+{% endblock %}
+{% block card2%}
+{%endblock%}
+{% block jsbody%}
+<script type="text/javascript">
+
+	$('#subcDataList').DataTable({
+        "bSort" : false,
+        
+    });
+    function goToAdd() {    	
+      location.href = "{% url 'add_subcategory' %}";
+      return false;
+    }  
+    
+    function goToDelete(idVal){
+   		var url = "{% url 'delete_subcategory' 123 %}".replace('123', idVal );
+   		if (confirm("Do you want to delete Sub Category !")) {		
+			location.href = url;		  
+		} 
+		return false;
+   }
+   
+   function goToSubCategory(subcate_id){   
+   	location.href = "{% url 'related_subcategory' 9999999999 %}".replace('9999999999',subcate_id);
+   	return false;
+   } 
+   
+    function goToSubCateEdit(subcate_id){   	
+   		location.href = "{% url 'edit_subcategory' 9999999999 %}".replace('9999999999',subcate_id)
+   		return false;
+   }
+  </script>  
+{%endblock%}

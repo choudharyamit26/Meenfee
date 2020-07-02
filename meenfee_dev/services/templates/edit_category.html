@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">Edit Category</h2>
+{% endblock %}
+{% block card%}
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+  <div class="panel panel-default">
+    <div class="panel-heading user-form">
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Category Name</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="name" type="text" readonly maxlength="35" required name="name"
+            value="{{data.name}}">
+          <input id="cate_id" type="hidden" name="cate_id" value="{{data.id}}">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Category Name (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" dir="rtl" id="name_arabic" type="text" readonly maxlength="35" required
+            name="name_arabic" value="{{data.name_arabic}}">
+          <input id="cate_id" type="hidden" name="cate_id" value="{{data.id}}">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">New Category Image</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="id_bannerimage" type="file" name="bannerimage">
+
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="user_address">Description</label>
+        <div class="col-md-4 offset-md-3">
+          <textarea maxlength="500" class="form-control" id="description" required name="description" rows="5"
+            placeholder="Description...">{{data.description}}</textarea>
+        </div>
+      </div>
+
+
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" type="submit">
+          <i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger" type="reset">
+          <i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+{% endblock %}
+{% block card2%}
+{% endblock %}
+
+{% block jsbody%}
+{%endblock%}

@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">Add Service</h2>
+{% endblock %}
+{% block card%}
+<style>
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>
+
+
+{% if messages %}
+<ul class="messages">
+  {% for message in messages %}
+  <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+  <div class="panel panel-default">
+    <div class="panel-heading user-form">
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Category</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" id="category" required name="category" onchange="getval(this);">
+            <option value="">--Select--</option>
+            {% for category in category %}
+            <option value={{category.0}}> {{category.1}}</option>
+
+            {% endfor %}
+          </select>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Sub Category</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" required id="subcategory" name="subcategory">
+            <option value="">--Select--</option>
+          </select>
+
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Service Name</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="service_name" type="text" required name="service_name" placeholder="Service">
+
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Project Type</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" id="price_type" name="price_type">
+            <option value="1">Hourly</option>
+            <option value="2">Monthly</option>
+          </select>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Service Price</label>
+        <div class="col-md-4 offset-md-3">
+          <!-- <input class="form-control" id="phonenumber" type="text"   pattern="\d*"   maxlength="10" name="phonenumber"  required placeholder="Mobile">
+                          -->
+          <input class="form-control" id="service_pricing" type="text" pattern="\d*" required name="service_pricing"
+            placeholder="Price">
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Skill Level</label>
+        <div class="col-md-4 offset-md-3">
+
+          <input class="form-control" id="levelskill" type="text" pattern="\d*" required name="levelskill"
+            placeholder="Skill">
+
+        </div>
+      </div>
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Experience</label>
+        <div class="col-md-3 offset-md-7">
+          <select class="form-control" id="experience" name="experience">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="professional">Professional</option>
+            <option value="expert">Expert</option>
+
+          </select>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Service Image</label>
+        <div class="col-md-4 offset-md-3">
+          <input class="form-control" id="id_image" type="file" name="image">
+          <input class="form-control" id="id_image1" type="file" name="image1">
+          <input class="form-control" id="id_image2" type="file" name="image2">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="user_address">Quote at Request</label>
+        <div class="col-md-4 offset-md-3">
+          <input type="checkbox" id="quote_at_request" name="quote_at_request" checked value="1">
+
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="user_address">Description</label>
+        <div class="col-md-4 offset-md-3">
+          <textarea class="form-control" id="description" required name="description" rows="5"
+            placeholder="Service Description..."></textarea>
+        </div>
+      </div>
+
+
+
+
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" type="submit">
+          <i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger" type="reset">
+          <i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+{% endblock %}
+{% block card2%}
+{% endblock %}
+
+{% block jsbody%}
+
+<script type="text/javascript">
+  function getval(sel) {
+    if (typeof sel == 'object') {
+      selId = sel.value;
+    }
+    $.ajax({
+      type: "GET",
+      url: "{% url 'get_table_values' %}",
+      data: {
+        'id': selId,
+      },
+      success: function (result) {
+        var ddHtml = '';
+        //ddHtml+='<option >--Select--</option>';
+        console.log(result);
+        if (result.qs_len != '0') {
+          $.each(result.qs, function (key, value) {
+            var valCode = value.subcate;
+            var valId = value.id;
+            ddHtml += '<option value=' + valId + ' selected>' + valCode + '</option>';
+            $("#subcategory").html(ddHtml);
+          });
+        } else {
+          $("#subcategory").val('')
+          //$("#subcategory").attr('disabled', 'disabled');
+        }
+      }
+    });
+  }
+</script>
+{%endblock%}

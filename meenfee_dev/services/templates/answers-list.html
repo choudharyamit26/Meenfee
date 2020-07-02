@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type" xmlns="http://www.w3.org/1999/html">Answers</h2>
+{% endblock %}
+{% block card%}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+
+<form role="form" method="post" name="detailform" id="detailform">{% csrf_token %}
+<div class="panel panel-default">
+<div class="panel-heading">  
+</div>
+ <!-- /.panel-heading -->
+<div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab" id="tab-main">Answers</a></li>        
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+           
+             <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id ="answersDataList">
+                    <thead>
+                        <tr>
+                            <th>SR. No.</th>                                            
+                            <th>Option (English)</th>                           
+                            <th>Option (Arabic)</th> 
+                            <!-- <th>Option 3</th>                                                       -->
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab1-tbody">{% csrf_token %}
+             		  {% for answer in answers %}             		  			
+						<tr>
+                         <td>{{ forloop.counter }}</td>
+                         <td>{{ answer.Option1 }} </td>
+                         <td>{{ answer.Option1_in_arabic }}</td>	                        
+                         <!-- <td>{{ answer.Option3 }}</td>                                                            -->
+                        <td>
+                        <a href="#" onclick='return goToDelete({{answer.id}},{{answer.question_id}}); '> Delete </a>  
+                        </td>
+                    </tr>								
+                      {% endfor %}  
+                    </tbody>
+                </table>
+            <!-- /.table-responsive --> 
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<!-- /.panel-body 1-->
+{% endblock %}
+{% block card2%}
+{%endblock%}
+{% block jsbody%}
+<script type="text/javascript">
+
+	$('#answersDataList').DataTable({
+	    "bSort" : false,
+	    
+	}); 
+	
+	function goToDelete(idVal,qId){
+	var url = "{% url 'delete_answer' 999999999 %}".replace('999999999', idVal );
+   		if (confirm("Do you want to delete Answer!")) {		
+			location.href = url+"?next="+qId;		  
+		} 
+		return false;
+	} 
+    
+</script> 
+{%endblock%}

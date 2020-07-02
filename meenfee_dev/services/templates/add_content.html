@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">Add Content</h2>
+{% endblock %}
+{% block card%}
+{{ form.media }}
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+  <div class="panel panel-default">
+    <div class="panel-heading user-form">
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Title</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.title }}
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Title (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.title_in_arabic }}
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Description</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.description }}
+        </div>
+      </div> -->
+
+      <!-- <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Content</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.content }}
+          <input type="hidden" name="isarabic" id="isarabic" value="true" />
+        </div>
+      </div> -->
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Content</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.content }}
+          <!-- <input type="text" name="content" id="content" value="true" /> -->
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-md-2 col-form-label" for="text-input">Content (Arabic)</label>
+        <div class="col-md-4 offset-md-3">
+          {{ form.content_in_arabic }}
+          <input type="hidden" name="content_arabic" id="content_arabic" value="true" />
+          <input type="hidden" name="isarabic" id="isarabic" value="true" />
+        </div>
+      </div>
+
+
+      <div class="card-footer">
+        <button class="btn btn-sm btn-primary" type="submit">
+          <i class="fa fa-dot-circle-o"></i> Submit</button>
+        <button class="btn btn-sm btn-danger" type="reset">
+          <i class="fa fa-ban"></i> Reset</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</form>
+
+
+
+{% endblock %}
+
+
+{% block card2%}
+{% endblock %}
+
+{% block jsbody%}
+{% endblock %}

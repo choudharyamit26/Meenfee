@@ -1,0 +1,132 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MeenFee Admin</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'font-awesome/css/font-awesome.css'%}" rel="stylesheet">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="{% static 'css/sb-admin.css'%}" rel="stylesheet">
+    <link href="{% static 'css/custom-style.css'%}" rel="stylesheet">
+
+</head>
+
+<body style="background: #03787d91;">
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-md-offset-3">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading login-from">
+                        <h3 class="panel-title">Sign In</h3>
+                    </div>
+                    <div class="panel-body form-sign-in">
+                        <form  role="form"  method="post" class="input-label" >{% csrf_token %}
+                            <fieldset>
+                               <label> Username : </label>
+                               <input type="text" id="username" name="username"><br><br>
+                                <label> Password : </label>
+                                <input type="password" id="password" name="password"><br><br>
+                                <button type="submit" class="btn btn-lg btn-success btn-block">Login</button>
+                                <label class="forgot-pwd">
+                                        <a href="/adminpanel/reset_password/">Forgot Password?</a>
+                                </label>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="{%static 'js/jquery-1.10.2.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'js/plugins/metisMenu/jquery.metisMenu.js'%}"></script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script>
+
+            /*$('#password').on('click', function () {
+                  var user = $('#username').val();
+                  //alert(user);
+                  //alert('Status');
+               $.ajax({
+                    url: '/user/test/',
+                    type:'GET',
+                    data: "username=1",
+                    success: function(result){
+                        alert(result);
+                    }
+
+                 });
+            });*/
+
+    /*$("#username").change(function () {
+      alert('hello')
+    });*/
+
+    /*$("input[name=password]").click(function () {
+      var username = $('#username').val();
+      $('#c_id').html('<select name="current_company" id="c_id"')
+      $('#c_id').append('<option >----select----</option>');
+      $.ajax({
+        url: '/user/validate_company_list/',
+        method:'GET',
+        data: {
+          'username': username
+        },
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+
+
+                $.each(data.c_ids, function(k, v) {
+                console.log(v['name'])
+                id=v["id"]
+                console.log(id)
+                name=v["name"]
+                // if user company mapping is_active == True
+
+                $('#c_id').append('<option value='+id+'>'+name+'</option>');
+
+
+});
+
+
+
+
+          }
+        }
+      });
+
+    });
+
+*/
+
+    </script>
+    <script src="{%static 'js/sb-admin.js'%}"></script>
+
+
+</body>
+
+</html>

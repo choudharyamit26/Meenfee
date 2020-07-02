@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type" xmlns="http://www.w3.org/1999/html">Category List</h2>
+{% endblock %}
+{% block card%}
+<style>
+</style>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+<form role="form" method="post" name="detailform" id="detailform">{% csrf_token %}
+<div class="panel panel-default">
+<div class="panel-heading">  
+</div>
+ <!-- /.panel-heading -->
+<div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab" id="tab-main">Category</a></li>
+        <li class="addbutton"><button  onclick="return goToAdd();" >Add </button></li>         
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+           
+             <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="cateDataList">
+                    <thead>
+                        <tr>
+                            <th>#</th>                                            
+                            <th>Category Name (English)</th>
+                            <th>Category Name (Arabic)</th>
+                            <th>Image</th>
+                            <th>Total Services</th>
+                            <th>Description</th>                                  
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab1-tbody">{% csrf_token %}
+             		  {% for catelist in object_list %}             		  			
+									<tr>
+                                     <td>{{ forloop.counter }}</td>
+                                    <td><a href="#" onclick='return goToSubCategory({{catelist.id }})'>{{ catelist.category2 }}</a></td>
+                                    <td><a href="#" onclick='return goToSubCategory({{catelist.id }})'>{{ catelist.category_arabic }}</a></td>
+                                     <td><img  height="40px" src="{{catelist.bannerimage.url}}"></img> </td>
+                                    <td>{{ catelist.services_count}}</td> 
+                                     <td>{{ catelist.description2 }}</td>                                  
+                                    <td>
+                                     <a href="#" onclick='return goToCateEdit({{catelist.id }})'> Edit </a> |
+                                     <a href="#" onclick='return goToDelete({{catelist.id }}); '> Delete </a>
+                                    </td>
+                                </tr>								
+                             {% endfor %}  
+                    </tbody>
+                </table>
+            <!-- /.table-responsive -->
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<!-- /.panel-body 1-->
+{% endblock %}
+{% block card2%}
+{%endblock%}
+{% block jsbody%}
+<script type="text/javascript">
+
+	$('#cateDataList').DataTable({
+	    "bSort" : false,
+	    
+	}); 
+	
+	function goToAdd() {    	
+      location.href = "{% url 'add_category' %}";
+      return false;
+    }
+    function goToDelete(idVal){
+	var url = "{% url 'delete_category' 12355555 %}".replace('12355555', idVal );
+   		if (confirm("Do you want to delete Category !")) {		
+			location.href = url;		  
+		} 
+		return false;
+   } 
+   
+   function goToCateEdit(cate_id){   	
+   		location.href = "{% url 'edit_category' 9999999999 %}".replace('9999999999',cate_id)
+   		return false;
+   }
+   
+   function goToSubCategory(subcate_id){   	
+   		location.href = "{% url 'related_subcategory' 9999999999 %}".replace('9999999999',subcate_id)
+   		return false;
+   }
+    
+</script> 
+{%endblock%}

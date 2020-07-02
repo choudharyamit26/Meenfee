@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">User Details</h2>
+{% endblock %}
+{% block card%}
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+<div class="user_panel">
+<div class="row">
+	<div class="col-md-12">
+		<div class="user_profile_details">
+			<h4>{{ userData.first_name}} {{  userData.last_name}} </h4>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<div class="test_details">
+			<p>This is User Bio. Which will added from the App side.</p>
+		</div>
+	</div>
+	<div class="col-md-2">
+		<div class="user_profile_img">
+			{% with default_image=STATIC_URL|add:"default_image.jpg" %}
+			    <img src="{% static 'image/default.jpg'%}"> 
+			{% endwith %}
+		
+			 
+		
+			
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="user_profile_tittle">
+			<dl class="dl-horizontal">
+				<dt>Current User Type</dt>
+				<dd>{{ userData.userotherinfo.usertype}} </dd>
+				
+				<dt>Joined Date </dt>
+				<dd>{{ userData.date_joined}}</dd>
+				
+				<dt>Active Status</dt>
+				<dd>Yes</dd>
+				
+				<dt>ID Card</dt>
+				<dd>{{ userData.userotherinfo.idcard}} &nbsp; 
+					<span class="button-checkbox">
+						<button type="button" class="btn">Verified</button>
+						<input type="checkbox" class="hidden" checked />
+					</span>
+				</dd>
+				
+				
+			</dl>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<div class="user_profile_tittle">
+			<dl class="dl-horizontal">
+				<dt>Email</dt>
+				<dd><a class="mailto" href="#"> {{ userData.email}}  </a></dd>
+				<dt>Registered Phone</dt>
+				<dd><a href="tel:+15555551212">{{ userData.userotherinfo.phone}}</a></dd>
+				<dt>Mobile Phone</dt>
+				<dd><a href="tel:+15555551212">{{ userData.userotherinfo.phone}} </a></dd>
+				<dt>Last Login Activity</dt>
+				<dd>{{ userData.last_login}} </dd>
+			</dl>
+		</div>
+	</div>
+</div>
+	
+</div>
+
+{% if userData.userotherinfo.usertype == 'provider' or userData.userotherinfo.usertype == 'Provider' %}
+
+<div class="max-row">
+	<div class="row">
+		<div class="col-md-6 bg-y">
+			<div class="user_panel_sec-2">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="user_profile_details">
+							<h4>Rating</h4>
+						</div>
+					</div>
+				
+					<div class="col-md-12">
+						<div class="card shadow mb-4">
+							<div class="card-body">
+								<h4 class="small font-weight-bold">Average Rating <span class="float-right">2.5</span></h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<!---<h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<h4 class="small font-weight-bold">Customer Database <span class="float-right">80%</span></h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-success" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+					
+				
+					
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 bg-t">
+			<div class="user_panel_sec-2">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="user_profile_details">
+							<h4>User Social Information</h4>
+						</div>
+					</div>
+				
+					<div class="col-md-12">
+						<div class="card shadow mb-4">
+							<ul class="infor_user">
+								<li><a href="#"><i class="fa fa-google-plus-square"></i> &nbsp; Google</a></li>
+								<li><a href="#"><i class="fa fa-facebook-square"></i>  &nbsp; Facebook</a></li>
+								<li><a href="#"><i class="fa fa-link"></i> &nbsp; Meenfee.com</a></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="user_likes_sec">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="user_profile_details">
+				<h4>Top 3 Reviews</h4>
+			</div>
+		</div>
+	
+	
+	{% if top_reviews is not None %}	
+		{% for review in top_reviews %}		
+		<div class="col-md-12">
+			<p>Rating : {{ review.rating }} </p>
+			<p>Review:{{ review.review }}</p>			
+			<span>Reviewed By: {{ review.feedback_user_name }}</span>			
+		</div>
+		{% empty %}
+		<div class="col-md-12">
+        	No Reviews.
+        </div>
+		{% endfor %}
+	{% endif %}		
+</div>
+</div>
+
+{% endif %}
+
+{% if userData.userotherinfo.usertype != 'provider' and  userData.userotherinfo.usertype != 'Provider' %}
+
+
+<div class="max-row">
+	<div class="row">
+		<div class="col-md-6 bg-t">
+			<div class="user_panel_sec-2">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="user_profile_details">
+							<h4>User Social Information</h4>
+						</div>
+					</div>
+				
+					<div class="col-md-12">
+						<div class="card shadow mb-4">
+							<ul class="infor_user">
+								<li><i class="fa fa-share-square"></i> &nbsp; Google </li>
+								<li><i class="fa fa-download"></i>  &nbsp; Facebook</li>
+								<li><i class="fa fa-link"></i> &nbsp; Meenfee.com</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="user_likes_sec">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="user_profile_details">
+				<h4>Services</h4>
+			</div>
+		</div>
+	
+		<div class="col-md-12">
+			<p>The Likes and Dislikes report summarizes how many people liked and disliked your videos.  
+				It shows the net change of likes and dislikes in your videos by counting the number of likes/dislikes added, 
+				minus the number of likes/dislikes removed. </p>
+			<p>Use the Compare metric button to compare the total number of likes/dislikes to other video metrics, including interaction metrics such 
+				as likes/dislikes added and removed, or subscribers and favorites change.</p>
+		</div>
+		
+		 <div ><a href="#">More....</a></div>
+	</div>
+</div>
+
+
+
+
+
+
+
+{% endif %}
+
+
+<!-- <div class="user_likes_sec">
+	<div class="row">
+		<div class="col-md-6 brg">
+			<div class="user_profile_details">
+				<h4>Notification</h4>
+			</div>
+			<div class="notifi-icon">
+				<ol>
+					<li>Abcder</li>
+					<li>Abcder</li>
+					<li>Abcder</li>
+					<li>Abcder</li>
+					<li>Abcder</li>
+				</ol>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="user_profile_details">
+				<h4>Settings</h4>
+			</div>
+			<div class="setting-icon">
+				<ul>
+					<li><i class="fa fa-cogs"></i> <br>gsdgios</li>
+					<li><i class="fa fa-cogs"></i> <br> sdfsadf</li>
+					<li><i class="fa fa-cogs"></i> <br> sdfasd</li>
+					<li><i class="fa fa-cogs"></i> <br> sdfas</li>
+					<li><i class="fa fa-cogs"></i> <br> sdfas</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>  --->
+
+<div class="user_likes_sec">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="user_profile_details">
+				<h4>Location : <span class="main_loc">{{ userData.userotherinfo.user_address}} </span></h4>
+			</div>
+		</div>
+	
+		<div class="col-md-12">
+			<!--<iframe class="map-dg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d224369.0356241299!2d77.25804458931252!3d28.51668171112809!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5a43173357b%3A0x37ffce30c87cc03f!2sNoida%2C+Uttar+Pradesh!5e0!3m2!1sen!2sin!4v1562309109331!5m2!1sen!2sin" width=100% height="350" frameborder="0" style="border:0"></iframe>
+		
+			-->
+		</div>
+	</div>
+</div>
+
+<button id ="backcancel" >Back</button>
+{% endblock %}
+ {% block card2%}
+ {% endblock %}
+{% block jsbody%}
+<script type="text/javascript">
+
+		$('button#backcancel').on('click', function(e){
+		    e.preventDefault();
+		    window.history.back();
+		});
+
+</script>
+{%endblock%}

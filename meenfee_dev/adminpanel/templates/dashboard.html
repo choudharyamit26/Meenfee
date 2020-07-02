@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+    <h2 class="admin-header">Dashboard</h2>
+{% endblock %}
+{% block card%}
+
+
+<div class="Dsah-board-panel">
+<div class="row">
+	<div class="col-lg-3 col-md-3">
+		<div id="ember585" class="ember-view">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row addcls">
+						<div class="col-xs-3"> <i class="fa fa-users fa-3x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">{{data.user_count}}</div>
+							<div>Users!</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3 flex-bx">
+							<div class="provider">
+								Provider-
+							</div>
+							<div class="provider-count">
+								{{data.provider_count}}
+							</div>
+						</div>
+						<div class="col-xs-9 flex-bx text-right">
+							<div class="provider">Requestor-</div>
+							<div class="provider-count">
+								{{data.requester_count}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<a href="/adminpanel/userlist">
+					<div class="panel-footer"> <span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3">
+		<div id="ember585" class="ember-view">
+			<div class="panel panel-green">
+				<div class="panel-heading">
+					<div class="row addcls">
+						<div class="col-xs-3"> <i class="fa fa-cogs fa-3x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">{{data.service_count}}</div>
+							<div>Services!</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="provider">
+							</div>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="provider"></div>
+						</div>
+					</div>
+				</div>
+				<a href="/adminpanel/services/services-list">
+					<div class="panel-footer green"> <span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3">
+		<div id="ember585" class="ember-view">
+			<div class="panel panel-yellow">
+				<div class="panel-heading">
+					<div class="row addcls">
+						<div class="col-xs-3"> <i class="fa fa-tags fa-3x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">{{data.category_count}}</div>
+							<div>Category!</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="provider">
+							</div>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="provider"></div>
+						</div>
+					</div>
+				</div>
+				<a href="/adminpanel/services/category-list">
+					<div class="panel-footer yellow"> <span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-3">
+		<div id="ember585" class="ember-view">
+			<div class="panel panel-orange">
+				<div class="panel-heading">
+					<div class="row addcls">
+						<div class="col-xs-3"><i class="fa fa-edit fa-3x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">{{data.content_count}}</div>
+							<div>Your Content!</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+							<div class="provider">
+							</div>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="provider"></div>
+						</div>
+					</div>
+				</div>
+				<a href="/adminpanel/services/content-list">
+					<div class="panel-footer orange"> <span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+	
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type">Add Questions</h2>
+{% endblock %}
+{% block card%}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+ 
+ 
+<form class="form-horizontal add_user" action="" method="post" enctype="multipart/form-data">
+<div class="panel panel-default">
+<div class="panel-heading user-form">         
+                 
+		<div class="form-group row">
+            <label class="col-md-2 col-form-label" for="text-input"></label>
+            <div class="col-md-4 offset-md-3">
+              <input type="radio" name="question" value="common"> Add category based Common Questions<br>
+			  <input type="radio" name="question" value="custom"> Add Service based Custom Questions<br><br>						  						  
+			  <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-dot-circle-o"></i> Go To Add</button>                          
+            </div>
+          </div>  
+  
+</div>
+</div>
+</div>
+</form>
+{% endblock %}
+ {% block card2%}
+ {% endblock %}
+
+{% block jsbody%}
+
+{%endblock%}

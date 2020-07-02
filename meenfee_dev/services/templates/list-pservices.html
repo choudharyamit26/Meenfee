@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type" xmlns="http://www.w3.org/1999/html">Provider Services</h2>
+{% endblock %}
+{% block card%}
+<style>
+</style>
+<form role="form" method="post" name="detailform" id="detailform">{% csrf_token %}
+<div class="panel panel-default">
+<div class="panel-heading">  
+</div>
+ <!-- /.panel-heading -->
+<div class="panel-body">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab" id="tab-main">Provider Services P Name</a></li>        
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+           
+             <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="serviceDataList">
+                    <thead>
+                        <tr>
+                            <th>#</th>  
+                            <th>Service Name</th> 
+                          
+                            <th>Avarage Rating</th>
+                            <th>Reviewed Count</th>  
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tab1-tbody">{% csrf_token %}
+             		  {% for serviceData in object_list %}             		  			
+									<tr>
+                                     <td>{{ forloop.counter }}</td>                                    
+                                    <td>{{ serviceData.serviceName2 }} | {{ serviceData.id }}</td>                                    
+                                    
+                                     <td>{{ serviceData.avg_rating|floatformat:'1'}}</td>
+                                      <td>{{ serviceData.count_of_rating | truncatechars:2 }}</td>
+                                                                       
+                                    <td>
+                                    <a href='# ' onclick='return goToListReviews({{serviceData.id }}); '> View All Reviews</a>| 
+                                    <a href="#" onclick='return goToDelete({{serviceData.id }}); '> Delete </a>                                    
+                                    </td>
+                                </tr>								
+                             {% endfor %}  
+                    </tbody>
+                </table>
+            <!-- /.table-responsive --> 
+             </div>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<!-- /.panel-body 1-->
+{% endblock %}
+{% block card2%}
+{%endblock%}
+{% block jsbody%}
+
+<script type="text/javascript">
+
+	$('#serviceDataList').DataTable({
+	    "bSort" : false,
+	    
+	});
+	
+	function goToListReviews(idVal){
+   		var url = "{% url 'list_pservices_reviews' 123 %}".replace('123', idVal );
+		location.href = url;		  
+		return false;
+   } 
+	
+	
+	
+	function goToDelete(idVal){
+   		var url = "{% url 'delete_service' 123 %}".replace('123', idVal );
+   		if (confirm("Do you want to delete Service!")) {		
+			location.href = url;		  
+		} 
+		return false;
+   } 
+    
+</script> 
+{%endblock%}

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pageheadername %}
+<h2 class="page-header user_type" xmlns="http://www.w3.org/1999/html">Questions</h2>
+{% endblock %}
+{% block card%}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+
+<form role="form" method="post" name="detailform" id="detailform">{% csrf_token %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#tab1" data-toggle="tab" id="tab-main">Questions</a></li>
+                <li class="addbutton"><button onclick="return goToAdd();">Add Question / Answer</button></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="questionDataList">
+                            <thead>
+                                <tr>
+                                    <th>SR. No.</th>
+                                    <th>Question Type</th>
+                                    <th>Question Type (Arabic)</th>
+                                    <th>Question for Provider</th>
+                                    <th>Question for Provider (Arabic)</th>
+                                    <th>Question for Requestor</th>
+                                    <th>Question for Requestor (Arabic)</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tab1-tbody">{% csrf_token %}
+                                {% for question in questions %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <!-- <td>{{ question.Question_name }} {{ question.id }}</td> -->
+                                    <td>{{ question.Question_name }}</td>
+                                    <td>{{ question.Question_name_in_arabic }}</td>
+                                    <td>{{ question.question_for_provider }}</td>
+                                    <td>{{ question.question_for_provider_in_arabic }}</td>
+                                    <td>{{ question.question_for_requestor }}</td>
+                                    <td>{{ question.question_for_requestor_in_arabic }}</td>
+                                    <td>
+                                        <!-- <a href="#" onclick='return goToServiceQuestions({{question.id}}); '> View Service Questions </a> | -->
+
+                                        <a href="#" onclick='return goToAnswers({{question.id}}); '> View Answers </a> |
+                                        <a href="#" onclick='return goToDelete({{question.id}}); '> Delete </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <!-- /.table-responsive -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+<!-- /.panel-body 1-->
+{% endblock %}
+{% block card2%}
+{%endblock%}
+{% block jsbody%}
+<script type="text/javascript">
+
+    $('#questionDataList').DataTable({
+        "bSort": false,
+
+    });
+
+    function goToDelete(idVal) {
+        var url = "{% url 'delete_question' 999999999 %}".replace('999999999', idVal);
+        if (confirm("Do you want to delete Question!")) {
+            location.href = url;
+        }
+        return false;
+    }
+
+    function goToAdd() {
+        location.href = "{% url 'type_questions' %}";
+        return false;
+    }
+
+
+    function goToServiceQuestions(idVal) {
+        var url = "{% url 'service_based_questions' 999999999 %}".replace('999999999', idVal);
+        location.href = url;
+        return false;
+
+    }
+
+    function goToAnswers(idVal) {
+        var url = "{% url 'list_answers' 999999999 %}".replace('999999999', idVal);
+        location.href = url;
+        return false;
+    }
+
+</script>
+{%endblock%}
