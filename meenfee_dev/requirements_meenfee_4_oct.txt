@@ -25,7 +25,7 @@ django-tinymce==2.8.0
 django-tinymce4-lite==1.7.5
 django-twilio==0.9.3
 django-uuidfield==0.5.0
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 drf-rw-serializers==1.0.1
 drf-writable-nested==0.5.1
