@@ -75,6 +75,6 @@ sqlparse==0.3.0
 twilio==6.23.1
 typed-ast==1.2.0
 uritemplate==3.0.0
-urllib3==1.24.1
+urllib3==1.26.5
 wrapt==1.11.1
 yawd-admin==0.7.0
